@@ -1,6 +1,7 @@
 const CACHE = "budget-tracker-cache-v1";
 const DATA_CACHE = "budget-tracker-data-cache-v1";
 
+// Cachce these files
 const FILES_TO_CACHE = [
     '/',
     '/index.html',
@@ -18,6 +19,7 @@ const FILES_TO_CACHE = [
     '/icons/icon-512x512.png'
 ];
 
+// Install service worker
 self.addEventListener('install', function(evt) {
     evt.waitUntil(
         caches.open(CACHE).then(cache => {
@@ -29,6 +31,7 @@ self.addEventListener('install', function(evt) {
     self.skipWaiting();
 });
 
+// Activate service worker
 self.addEventListener('activate', function(evt) {
     evt.waitUntil(
         caches.keys().then(keyList => {
@@ -46,6 +49,7 @@ self.addEventListener('activate', function(evt) {
     self.clients.claim();
 });
 
+// Fetch interceptor
 self.addEventListener('fetch', function(evt) {
     if(evt.request.url.includes('/api/')) {
         evt.respondWith(
